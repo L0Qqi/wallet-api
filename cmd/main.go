@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/L0Qqi/wallet-api/internal/config"
 	"github.com/L0Qqi/wallet-api/internal/handler"
 	"github.com/joho/godotenv"
 )
@@ -13,6 +14,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
+
+	db := config.InitDB()
+	defer db.Close()
 
 	port := os.Getenv("PORT")
 	if port == "" {
